@@ -394,6 +394,14 @@
   var TIERS = ["Mild","Medium","Hot","Nuclear"];
 
   var PRODUCTS = [
+    {slogan:"Merry Me", tier:"Mild", etsy:"https://www.etsy.com/listing/4583816859/merry-me-christmas-pun-tee-sarcastic", img:"images/4583816859.jpg"},
+    {slogan:"Special Event", tier:"Mild", etsy:"https://www.etsy.com/listing/4582146907/sarcastic-special-event-tee-deadpan", img:"images/4582146907.jpg"},
+    {slogan:"Parked in a Cul-de-Sac of Mediocrity", tier:"Mild", etsy:"https://www.etsy.com/listing/4582144069/sarcastic-cul-de-sac-mediocrity-t-shirt", img:"images/4582144069.jpg"},
+    {slogan:"Wildwood Cabins — Where the Right Wood Is Waiting", tier:"Medium", etsy:"https://www.etsy.com/listing/4582100621/wildwood-cabins-camping-tee-retro-lodge", img:"images/4582100621.jpg"},
+    {slogan:"Cada Día Tomo, Porque Mi Vida Es una Ocasión Especial", tier:"Medium", etsy:"https://www.etsy.com/listing/4579290739/funny-spanish-drinking-tee-everyday", img:"images/4579290739.jpg"},
+    {slogan:"Alcoholics Know Ice Is Just a Distraction", tier:"Medium", etsy:"https://www.etsy.com/listing/4579050778/funny-alcoholics-know-ice-is-just", img:"images/4579050778.jpg"},
+    {slogan:"I’m Not Easy, I’m Popular", tier:"Medium", etsy:"https://www.etsy.com/listing/4579254825/sarcastic-im-popular-graphic-tee-sassy", img:"images/4579254825.jpg"},
+    {slogan:"I’m Not a Slut, I’m Popular", tier:"Hot", etsy:"https://www.etsy.com/listing/4579250377/sarcastic-humor-t-shirt-im-not-easy-im", img:"images/4579250377.jpg"},
     {slogan:"Potential: Season 1, Cancelled", tier:"Medium", etsy:"https://www.etsy.com/listing/4583858494/potential-season-1-cancelled-shirt-funny", img:"images/4583858494.jpg"},
     {slogan:"If I Really Wanted a Relationship, I'd Remember Your Name", tier:"Medium", etsy:"https://www.etsy.com/listing/4583836911/if-i-really-wanted-a-relationship-shirt", img:"images/4583836911.jpg"},
     {slogan:"Bye-Sexual", tier:"Medium", etsy:"https://www.etsy.com/listing/4583804327/bye-sexual-shirt-funny-wordplay-tee", img:"images/4583804327.jpg"},
@@ -493,6 +501,7 @@
     grid.innerHTML = '';
     var nn = document.getElementById('nuclear-note'); if(nn){ nn.hidden = (maxIdx < 3); }
     PRODUCTS.filter(function(p){ return TIERS.indexOf(p.tier) <= maxIdx; })
+      .sort(function(a,b){ return TIERS.indexOf(b.tier) - TIERS.indexOf(a.tier); })
       .forEach(function(p){
         var card = document.createElement('div');
         card.className = 'card';
