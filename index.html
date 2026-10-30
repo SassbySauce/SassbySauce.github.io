@@ -272,6 +272,11 @@
     filter:blur(16px); pointer-events:none; user-select:none;
   }
 
+  .nuclear-note{margin:22px 0 0; padding:14px 16px; border:1px solid #d9b9b4; background:#f8ece9; border-radius:5px; font-size:13.5px; line-height:1.6; color:#5a2a2a;}
+  .nuclear-note b{color:var(--nuclear);}
+  .age-confirm h2{font-size:22px; margin:0 0 8px; font-weight:600; color:var(--nuclear);}
+  .age-confirm p{font-size:13.5px; color:#5a544a; line-height:1.55; margin:0 0 6px;}
+
   @media (max-width:480px){
     nav{gap:14px;}
     nav a{font-size:11px;}
@@ -325,6 +330,7 @@
       <button class="tier-btn" data-tier="Nuclear">+ Nuclear</button>
     </div>
   </div>
+  <div class="nuclear-note" id="nuclear-note" hidden><b>Nuclear is 18+ and ordered by email.</b> Tap Email to Order on any Nuclear design, fill in your size, color and shipping details, and we'll reply with a payment link.</div>
   <div class="grid" id="product-grid"></div>
 </section>
 
@@ -365,13 +371,21 @@
     <h2 class="display">Pick Your Spice</h2>
     <p>Some of what's in here gets a little spicy. Choose your comfort level — you can change it anytime.</p>
     <p class="gate-warn"><b>⚠ Offensive Materials Dept.:</b> Expect sarcasm, mild profanity, and opinions nobody asked for. By entering, you agree a joke isn't a personal attack and you waive the right to be shocked by exactly what you were warned about. Nothing hateful — just sharper than beige. Pick your spice and come on in.</p>
-    <div class="gate-options">
+    <div class="gate-options" id="gate-options">
       <button class="gate-opt" data-tier="Mild"><span class="dotcol" style="background:#8AA98A"></span><span><b>Mild</b><small>Dry humor, self-deprecation, clean confidence</small></span></button>
       <button class="gate-opt" data-tier="Medium"><span class="dotcol" style="background:#D9A441"></span><span><b>Medium</b><small>Innuendo, sass, a little bite</small></span></button>
       <button class="gate-opt" data-tier="Hot"><span class="dotcol" style="background:#C9573F"></span><span><b>Hot</b><small>Explicit language, adult humor</small></span></button>
       <button class="gate-opt" data-tier="Nuclear"><span class="dotcol" style="background:#7A2E2E"></span><span><b>Nuclear</b><small>No filter. You've been warned.</small></span></button>
     </div>
-    <p class="gate-fine">18+ recommended for Hot and Nuclear tiers.</p>
+    <div class="age-confirm" id="age-confirm" hidden>
+      <h2 class="display">Nuclear Is 18+ Only</h2>
+      <p>The Nuclear tier has explicit language and adult humor. Nuclear shirts are ordered by email, and you'll confirm your age there too.</p>
+      <div class="gate-options">
+        <button class="gate-opt" id="age-yes"><span><b>I'm 18 or older</b><small>Show me the Nuclear stuff</small></span></button>
+        <button class="gate-opt" id="age-no"><span><b>Take me back</b><small>Pick a different spice level</small></span></button>
+      </div>
+    </div>
+    <p class="gate-fine">18+ recommended for Hot. Nuclear is 18+ only.</p>
   </div>
 </div>
 
@@ -404,7 +418,13 @@
     {slogan:"I'm Only a Social Drinker — Wanna Hang Out?", tier:"Medium", etsy:"https://www.etsy.com/listing/4579064757/only-a-social-drinker-wanna-hang-out", img:"images/4579064757.jpg"},
     {slogan:"I'm Allergic to People, But Alcohol Helps", tier:"Medium", etsy:"https://www.etsy.com/listing/4579043987/im-allergic-to-people-alcohol-helps", img:"images/4579043987.jpg"},
     {slogan:"Time Blind — That's Why I'm Always Late", tier:"Medium", etsy:"https://www.etsy.com/listing/4578885128/time-blind-shirt-funny-sarcastic-adhd", img:"images/4578885128.jpg"},
-    {slogan:"Inner Fucking Peace", tier:"Hot", etsy:"https://www.etsy.com/listing/4578865671/inner-fucking-peace-shirt-funny", img:"images/4578865671.jpg"}
+    {slogan:"Inner Fucking Peace", tier:"Hot", etsy:"https://www.etsy.com/listing/4578865671/inner-fucking-peace-shirt-funny", img:"images/4578865671.jpg"},
+    {slogan:"Best Advice: Fuck It", tier:"Nuclear", email:true},
+    {slogan:"Here Comes the Shit-tastrophie", tier:"Nuclear", email:true},
+    {slogan:"0 Effort", tier:"Nuclear", email:true},
+    {slogan:"I Like My Men [...with a release date?]", tier:"Nuclear", email:true},
+    {slogan:"Reach Around Radio", tier:"Nuclear", email:true},
+    {slogan:"Fuck Your X-Mas", tier:"Nuclear", email:true}
   ];
 
   var overlay = document.getElementById('gate-overlay');
@@ -431,6 +451,7 @@
     renderGrid(t);
   }
   function openGate(){
+    hideAgeConfirm();
     overlay.hidden = false;
     document.body.classList.add('gate-locked');
     // Some mobile browsers (notably Android Chrome) hold onto a stale
@@ -444,6 +465,21 @@
     window.scrollTo(0, 0);
   }
 
+  var ORDER_EMAIL = 'sauceandsassco@gmail.com';
+  function orderMailto(p){
+    var subject = 'Nuclear order: ' + p.slogan;
+    var body = 'Design: ' + p.slogan + '\n\nSize:\nShirt color:\nShipping name:\nShipping address:\n\nI confirm I am 18 or older: YES\n';
+    return 'mailto:' + ORDER_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  }
+  function showAgeConfirm(){
+    document.getElementById('gate-options').hidden = true;
+    document.getElementById('age-confirm').hidden = false;
+  }
+  function hideAgeConfirm(){
+    document.getElementById('gate-options').hidden = false;
+    document.getElementById('age-confirm').hidden = true;
+  }
+
   function renderFilterButtons(ceiling){
     var ceilIdx = TIERS.indexOf(ceiling);
     var buttons = tierFilter.querySelectorAll('.tier-btn');
@@ -455,11 +491,12 @@
   function renderGrid(maxTier){
     var maxIdx = TIERS.indexOf(maxTier);
     grid.innerHTML = '';
+    var nn = document.getElementById('nuclear-note'); if(nn){ nn.hidden = (maxIdx < 3); }
     PRODUCTS.filter(function(p){ return TIERS.indexOf(p.tier) <= maxIdx; })
       .forEach(function(p){
         var card = document.createElement('div');
         card.className = 'card';
-        var buyHtml = p.etsy === '#'
+        var buyHtml = p.email ? ('<a class="buy" href="' + orderMailto(p) + '">Email to Order</a>') : p.etsy === '#'
           ? '<span class="buy soon">Coming Soon</span>'
           : '<a class="buy" href="'+p.etsy+'" target="_blank" rel="noopener">Shop on Etsy</a>';
         var altText = p.slogan.replace(/"/g, '&quot;');
@@ -488,6 +525,9 @@
   overlay.addEventListener('click', function(e){
     var opt = e.target.closest('.gate-opt');
     if(!opt) return;
+    if(opt.id === 'age-yes'){ hideAgeConfirm(); setSpice('Nuclear'); return; }
+    if(opt.id === 'age-no'){ hideAgeConfirm(); return; }
+    if(opt.dataset.tier === 'Nuclear'){ showAgeConfirm(); return; }
     setSpice(opt.dataset.tier);
   });
 
