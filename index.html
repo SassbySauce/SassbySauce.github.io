@@ -433,8 +433,8 @@
     {slogan:"Inner Fucking Peace", tier:"Hot", etsy:"https://www.etsy.com/listing/4578865671/inner-fucking-peace-shirt-funny", img:"images/4578865671.jpg"},
     {slogan:"Best Advice: Fuck It", tier:"Nuclear", email:true, img:"images/nuclear-best-advice.jpg"},
     {slogan:"Here Comes the Shit-tastrophie", tier:"Nuclear", email:true, img:"images/nuclear-shittastrophie.jpg"},
-    {slogan:"0 Effort", sub:"The Art of Not Giving a Fuck", tier:"Nuclear", email:true, img:"images/nuclear-0-effort.jpg"},
-    {slogan:"I Like My Men [...with a release date?]", tier:"Nuclear", email:true, img:"images/nuclear-i-like-my-men.jpg"},
+    {slogan:"0 Effort", sub:"The Art of Not Giving a Fuck", colors:"Sage, Tan, Light Gray, Cream, Off-White, White", tier:"Nuclear", email:true, img:"https://files.cdn.printful.com/upload/product-templates/90/90bb1ce697e4c01a5c7ed97cffd39242_l"},
+    {slogan:"I Like My Men [...with a release date?]", colors:"White", tier:"Nuclear", email:true, img:"https://files.cdn.printful.com/upload/product-templates/1f/1fe847fed58728c4130053c7d0d8c392_l"},
     {slogan:"Reach Around Radio", tier:"Nuclear", email:true, img:"images/nuclear-reach-around-radio.jpg"},
     {slogan:"Fuck Your X-Mas", tier:"Nuclear", email:true, img:"images/nuclear-fuck-your-xmas.jpg"},
     {slogan:"One Happy Motherfucker", tier:"Nuclear", email:true, img:"images/nuclear-one-happy-motherfucker.jpg"},
@@ -482,7 +482,7 @@
   var ORDER_EMAIL = 'sauceandsassco@gmail.com';
   function orderMailto(p){
     var subject = 'Nuclear order: ' + p.slogan;
-    var body = 'Design: ' + p.slogan + '\n\nSize:\nShirt color:\nShipping name:\nShipping address:\n\nI confirm I am 18 or older: YES\n';
+    var body = 'Design: ' + p.slogan + '\n\nSize (XS-3XL):\nShirt color (available: ' + (p.colors || 'ask us') + '):\nShipping name:\nShipping address:\n\nAre you 18 or older? (Yes/No):\n';
     return 'mailto:' + ORDER_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   }
   function showAgeConfirm(){
