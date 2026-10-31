@@ -181,7 +181,7 @@
     font-size:16px; line-height:1.3; color:var(--ink); position:relative; z-index:1;
   }
   .card .body{padding:16px; display:flex; flex-direction:column; gap:10px; flex:1;}
-  .card .slogan{font-size:14px; font-weight:600; line-height:1.35;}
+  .card .sub{font-size:12px; color:#6b645a; line-height:1.4; font-style:italic; margin-top:-4px;} .card .art img{cursor:zoom-in;} .card .slogan{font-size:14px; font-weight:600; line-height:1.35;}
   .tier-badge{
     align-self:flex-start; font-size:10px; text-transform:uppercase; letter-spacing:.6px;
     padding:3px 10px; border-radius:10px; color:#fff; font-weight:700;
@@ -404,8 +404,8 @@
     {slogan:"Wildwood Cabins — Where the Right Wood Is Waiting", tier:"Medium", etsy:"https://www.etsy.com/listing/4582100621/wildwood-cabins-camping-tee-retro-lodge", img:"images/4582100621.jpg"},
     {slogan:"Cada Día Tomo, Porque Mi Vida Es una Ocasión Especial", tier:"Medium", etsy:"https://www.etsy.com/listing/4579290739/funny-spanish-drinking-tee-everyday", img:"images/4579290739.jpg"},
     {slogan:"Alcoholics Know Ice Is Just a Distraction", tier:"Medium", etsy:"https://www.etsy.com/listing/4579050778/funny-alcoholics-know-ice-is-just", img:"images/4579050778.jpg"},
-    {slogan:"I’m Not Easy, I’m Popular", tier:"Medium", etsy:"https://www.etsy.com/listing/4579254825/sarcastic-im-popular-graphic-tee-sassy", img:"images/4579254825.jpg"},
-    {slogan:"I’m Not a Slut, I’m Popular", tier:"Hot", etsy:"https://www.etsy.com/listing/4579250377/sarcastic-humor-t-shirt-im-not-easy-im", img:"images/4579250377.jpg"},
+    {slogan:"I’m Not Easy, I’m Popular", tier:"Medium", etsy:"https://www.etsy.com/listing/4579250377/sarcastic-humor-t-shirt-im-not-easy-im", img:"images/4579250377.jpg"},
+    {slogan:"I’m Not a Slut, I’m Popular", tier:"Hot", etsy:"https://www.etsy.com/listing/4579254825/sarcastic-im-popular-graphic-tee-sassy", img:"images/4579254825.jpg"},
     {slogan:"Potential: Season 1, Cancelled", tier:"Medium", etsy:"https://www.etsy.com/listing/4583858494/potential-season-1-cancelled-shirt-funny", img:"images/4583858494.jpg"},
     {slogan:"If I Really Wanted a Relationship, I'd Remember Your Name", tier:"Medium", etsy:"https://www.etsy.com/listing/4583836911/if-i-really-wanted-a-relationship-shirt", img:"images/4583836911.jpg"},
     {slogan:"Bye-Sexual", tier:"Medium", etsy:"https://www.etsy.com/listing/4583804327/bye-sexual-shirt-funny-wordplay-tee", img:"images/4583804327.jpg"},
@@ -424,7 +424,7 @@
     {slogan:"Friday Is My 2nd Favorite F-Word — Food's First", tier:"Medium", etsy:"https://www.etsy.com/listing/4579303069/friday-is-my-2nd-favorite-f-word-shirt-o", img:"images/4579303069.jpg"},
     {slogan:"Beauty Is Only a Light Switch Away", tier:"Mild", etsy:"https://www.etsy.com/listing/4579299029/beauty-is-only-a-light-switch-away-shirt", img:"images/4579299029.jpg"},
     {slogan:"Character? I Am One", tier:"Mild", etsy:"https://www.etsy.com/listing/4579312178/character-i-am-one-shirt-funny-quirky", img:"images/4579312178.jpg"},
-    {slogan:"Don't Complain — No One's Listening", tier:"Mild", etsy:"https://www.etsy.com/listing/4579284308/dont-complain-no-ones-listening-shirt-o", img:"images/4579284308.jpg"},
+    {slogan:"No One Cares", tier:"Mild", etsy:"https://www.etsy.com/listing/4579284308/dont-complain-no-ones-listening-shirt-o", img:"images/4579284308.jpg"},
     {slogan:"Generator of Non Humorous Humor", tier:"Mild", etsy:"https://www.etsy.com/listing/4579263749/generator-of-non-humorous-humor-shirt", img:"images/4579263749.jpg"},
     {slogan:"I'm Not Promiscuous, I'm Popular", tier:"Medium", etsy:"https://www.etsy.com/listing/4579089410/im-not-promiscuous-im-popular-shirt", img:"images/4579089410.jpg"},
     {slogan:"I'm Only a Social Drinker — Wanna Hang Out?", tier:"Medium", etsy:"https://www.etsy.com/listing/4579064757/only-a-social-drinker-wanna-hang-out", img:"images/4579064757.jpg"},
@@ -433,7 +433,7 @@
     {slogan:"Inner Fucking Peace", tier:"Hot", etsy:"https://www.etsy.com/listing/4578865671/inner-fucking-peace-shirt-funny", img:"images/4578865671.jpg"},
     {slogan:"Best Advice: Fuck It", tier:"Nuclear", email:true, img:"images/nuclear-best-advice.jpg"},
     {slogan:"Here Comes the Shit-tastrophie", tier:"Nuclear", email:true, img:"images/nuclear-shittastrophie.jpg"},
-    {slogan:"0 Effort", tier:"Nuclear", email:true, img:"images/nuclear-0-effort.jpg"},
+    {slogan:"0 Effort", sub:"The Art of Not Giving a Fuck", tier:"Nuclear", email:true, img:"images/nuclear-0-effort.jpg"},
     {slogan:"I Like My Men [...with a release date?]", tier:"Nuclear", email:true, img:"images/nuclear-i-like-my-men.jpg"},
     {slogan:"Reach Around Radio", tier:"Nuclear", email:true, img:"images/nuclear-reach-around-radio.jpg"},
     {slogan:"Fuck Your X-Mas", tier:"Nuclear", email:true, img:"images/nuclear-fuck-your-xmas.jpg"},
@@ -521,7 +521,7 @@
         card.innerHTML =
           '<div class="art">' + artHtml + '</div>' +
           '<div class="body">' +
-            '<div class="slogan">' + p.slogan + '</div>' +
+            '<div class="slogan">' + p.slogan + '</div>' + (p.sub ? '<div class="sub">' + p.sub + '</div>' : '') +
             '<span class="tier-badge tier-' + p.tier + '">' + p.tier + '</span>' +
             buyHtml +
           '</div>';
@@ -566,5 +566,5 @@
 })();
 </script>
 
-</body>
+<div id="lb" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(20,18,17,.94);overflow:auto;-webkit-overflow-scrolling:touch;cursor:zoom-out;"><button id="lbx" aria-label="Close" style="position:fixed;top:14px;right:18px;z-index:10000;background:#F4F0E6;color:#141211;border:0;border-radius:50%;width:40px;height:40px;font-size:22px;line-height:40px;cursor:pointer;">&times;</button><img id="lbimg" alt="" style="display:block;margin:auto;max-width:96vw;max-height:92vh;cursor:zoom-in;"></div><script>(function(){var lb=document.getElementById('lb'),im=document.getElementById('lbimg'),zoomed=false;function reset(){zoomed=false;im.style.maxWidth='96vw';im.style.maxHeight='92vh';im.style.width='';im.style.cursor='zoom-in';}function openLb(src,alt){im.src=src;im.alt=alt||'';reset();lb.style.display='flex';lb.scrollTop=0;lb.scrollLeft=0;document.body.style.overflow='hidden';}function closeLb(){lb.style.display='none';document.body.style.overflow='';reset();}document.addEventListener('click',function(e){var t=e.target;if(t&&t.tagName==='IMG'&&t.closest&&t.closest('.card .art')){openLb(t.currentSrc||t.src,t.alt);}});im.addEventListener('click',function(e){e.stopPropagation();zoomed=!zoomed;if(zoomed){im.style.maxWidth='none';im.style.maxHeight='none';im.style.width='200vw';im.style.cursor='zoom-out';}else{reset();}});lb.addEventListener('click',closeLb);document.getElementById('lbx').addEventListener('click',function(e){e.stopPropagation();closeLb();});document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.style.display!=='none'){closeLb();}});})();</script></body>
 </html>
